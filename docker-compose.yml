@@ -5,6 +5,23 @@ networks:
     driver: bridge
 
 services:
+  kafka-stream-demo-app:
+    image: kafka-streams-state-store-monitoring-poc:0.0.1-SNAPSHOT
+    container_name: kafka-stream-demo-app
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - fast-data-dev
+      - zipkin
+    environment:
+      spring.profiles.active: dev
+      envs.config-server.url: "http://config-server:8888"
+      spring.zipkin.base-url: "http://zipkin:9411/"
+      spring.kafka.bootstrap-servers: "fast-data-dev:9092"
+    networks:
+      - dev
+
   fast-data-dev:
     image: landoop/fast-data-dev:2.5.1
     ports:
@@ -14,7 +31,7 @@ services:
       - "9581-9585:9581-9585" # JMX
       - "9092:9092" # Kafka Broker
     environment:
-      ADV_HOST: kubernetes.docker.internal
+      ADV_HOST: fast-data-dev
       SAMPLEDATA: 0
       RUNTESTS: 0
       RUNNING_SAMPLEDATA: 0
@@ -22,8 +39,8 @@ services:
       - dev
 
   zipkin:
-    image: openzipkin/zipkin
+    image: openzipkin/zipkin:2.23
     ports:
-      - "9411:9411" # ZooKeeper
+      - "9411:9411" # zipkin ui
     networks:
       - dev

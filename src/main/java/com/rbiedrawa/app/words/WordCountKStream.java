@@ -26,7 +26,7 @@ public class WordCountKStream {
 	@Bean
 	public Function<KStream<Bytes, String>, KStream<Bytes, WordCount>> process() {
 		return input -> input
-			.peek((key, value) -> log.info("Received key: {} value: {}", key, value))
+			.peek((key, value) -> log.info("Received word: {}", value))
 			.flatMapValues(value -> Arrays.asList(value.toLowerCase().split("\\W+")))
 			.map((key, value) -> new KeyValue<>(value, value))
 			.groupByKey(Grouped.with(Serdes.String(), Serdes.String()))
