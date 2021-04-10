@@ -36,12 +36,12 @@ This repository demonstrates how to measure **StateStore** restoration process t
     # kafka-stream-demo-app                         /cnb/process/web                 Up             0.0.0.0:8080->8080/tcp                                             
     ```
 
-* Follow logs of `demo-app`
+* Follow logs of `demo-app`.
   ```shell
   docker-compose logs -f kafka-stream-demo-app
   ```
 
-* Produce dummy messages to add data to state store.
+* Produce dummy messages to add some data to state store.
   ```shell
   # start kafka console producer
   docker-compose exec fast-data-dev kafka-console-producer --broker-list fast-data-dev:9092 --topic words
@@ -56,7 +56,7 @@ This repository demonstrates how to measure **StateStore** restoration process t
   docker-compose restart kafka-stream-demo-app
   ```
 
-* View `demo-app` logs, StateRestoreListener should print metrics for state store restoration process, below sample output:
+* View `demo-app` logs, StateRestoreListener should print some metrics, below sample output:
   ```shell
   kafka-stream-demo-app    | 2021-04-10 14:21:00.603  INFO [hello-world,,] 1 --- [-StreamThread-1] c.r.a.kafka.ZipkinStateRestoreListener   : Started restoration of WordCounts partition 0 total records to be restored 6
   kafka-stream-demo-app    | 2021-04-10 14:21:00.604  INFO [hello-world,,] 1 --- [-StreamThread-1] c.r.a.kafka.ZipkinStateRestoreListener   : Started restoration of WordCounts partition 5 total records to be restored 1
