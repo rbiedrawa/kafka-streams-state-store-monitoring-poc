@@ -67,7 +67,7 @@ This repository demonstrates how to measure **StateStore** restoration process t
 
 * Open your web browser and go to [Zipkin dashboard page](http://localhost:9411/).
 
-* Use `tagQuery=state-store` to filter only `state-store` traces.
+* Use `tagQuery=state-restore` to filter only `state-restore` traces.
   ![zipkin-search-by-tagQuery.png](./_docs/img/zipkin-search-by-tagQuery.png)
 
 * Click `SHOW` button to see more details.
