@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: "hello-world"
+  zipkin:
+    base-url: "http://localhost:9411/"
+  sleuth:
+    sampler:
+      probability: 1 # Don't Do This in Production
+      rate: 10
+  kafka:
+    bootstrap-servers: ${APP_KAFKA_BOOTSTRAP_SERVERS:kubernetes.docker.internal:9092}
+  cloud:
+    stream:
+      bindings:
+        process-in-0:
+          destination: words
+        process-out-0:
+          destination: counts
+      kafka:
+        streams:
+          binder:
+            applicationId: hello-world-kstream
+            configuration:
+              commit.interval.ms: 50
+              default:
+                key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+            brokers: ${spring.kafka.bootstrap-servers}
+
+management:
+  endpoint:
+    health:
+      show-details: ALWAYS
+  endpoints:
+    web:
+      exposure:
+        include: metrics,health
+
+logging:
+  level:
+    org.springframework.kafka.config: debug
