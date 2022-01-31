@@ -9,7 +9,7 @@ This repository demonstrates how to measure **StateStore** restoration process t
 
 ## Getting Started
 
-### Prerequisite
+### Prerequisites
 
 * Java 8
 * Docker
